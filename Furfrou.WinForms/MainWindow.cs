@@ -288,7 +288,7 @@ public partial class MainWindow : Form
                     PK9 pk = new(bytes);
                     if (!pk.ChecksumValid) throw new Exception("Data does not contain a valid checksum! Aborting write.");
                     var data = StringToByteArray(bytestring);
-                    await ConnectionWrapper.WriteB1S1(data, Source.Token).ConfigureAwait(false);
+                    await ConnectionWrapper.WriteWholeBox(data, Source.Token).ConfigureAwait(false);
                 }
                 catch (Exception ex)
                 {
@@ -370,7 +370,7 @@ public partial class MainWindow : Form
                 SetTextBoxText(ot, TB_PartnerOT);
 
                 PK9 pk = new(Data);
-                FillFields(pk);
+                if (pk.ChecksumValid) FillFields(pk);
             }
             catch (Exception ex)
             {
