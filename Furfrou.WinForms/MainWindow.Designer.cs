@@ -581,7 +581,6 @@ namespace Furfrou.WinForms;
         Controls.Add(GB_SAVInfo);
         Icon = (Icon)resources.GetObject("$this.Icon");
         Name = "MainWindow";
-        Text = "Furfrou";
         Load += MainWindow_Load;
         GB_Connection.ResumeLayout(false);
         GB_Connection.PerformLayout();

@@ -75,7 +75,7 @@ public partial class MainWindow : Form
         var build = "";
 #endif
 
-        Text = $"Automatic Radar Seed Extrapolator v{v.Major}.{v.Minor}.{v.Build}{build}";
+        Text = $"Furfrou v{v.Major}.{v.Minor}.{v.Build}{build}";
 
         InitializeComponent();
     }
@@ -260,8 +260,12 @@ public partial class MainWindow : Form
                 try
                 {
                     var bytestring = TB_RAM.Text.Replace("\t", "").Replace(" ", "").Trim();
+                    if (bytestring.Length != 688) throw new Exception($"Data is not the correct length! Aborting write.\n\nExpected: 344\nReceived: {bytestring.Length / 2}");
                     var bytes = StringToByteArray(bytestring);
-                    await ConnectionWrapper.WriteB1S1(bytes, Source.Token).ConfigureAwait(false);
+                    PK9 pk = new(bytes);
+                    if (!pk.ChecksumValid) throw new Exception("Data does not contain a valid checksum! Aborting write.");
+                    var data = StringToByteArray(bytestring);
+                    await ConnectionWrapper.WriteB1S1(data, Source.Token).ConfigureAwait(false);
                 }
                 catch (Exception ex)
                 {
@@ -279,8 +283,12 @@ public partial class MainWindow : Form
                 try
                 {
                     var bytestring = TB_RAM.Text.Replace("\t", "").Replace(" ", "").Trim();
+                    if (bytestring.Length != 688) throw new Exception($"Data is not the correct length! Aborting write.\n\nExpected: 344\nReceived: {bytestring.Length / 2}");
                     var bytes = StringToByteArray(bytestring);
-                    await ConnectionWrapper.WriteWholeBox(bytes, Source.Token).ConfigureAwait(false);
+                    PK9 pk = new(bytes);
+                    if (!pk.ChecksumValid) throw new Exception("Data does not contain a valid checksum! Aborting write.");
+                    var data = StringToByteArray(bytestring);
+                    await ConnectionWrapper.WriteB1S1(data, Source.Token).ConfigureAwait(false);
                 }
                 catch (Exception ex)
                 {
