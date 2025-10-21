@@ -1,7 +1,6 @@
+using System.Diagnostics;
 using System.Net.Sockets;
-using System.Text;
 using PKHeX.Core;
-using Furfrou.Core.Interfaces;
 using Furfrou.Core.Structures;
 using SysBot.Base;
 using static System.Buffers.Binary.BinaryPrimitives;
@@ -97,6 +96,9 @@ public class ConnectionWrapperAsync(SwitchConnectionConfig Config, Action<string
         TradePartnerMyStatusOffset = await Connection.PointerAll(TradePartnerMyStatusPointer, token).ConfigureAwait(false);
         TradePartnerNIDOffset      = await Connection.PointerAll(TradePartnerNIDPointer     , token).ConfigureAwait(false);
         TradePartnerPokemonOffset  = await Connection.PointerAll(TradePartnerPokemonPointer , token).ConfigureAwait(false);
+        Debug.Print($"MyStatus: 0x{TradePartnerMyStatusOffset:X16}");
+        Debug.Print($"NID:      0x{TradePartnerNIDOffset:X16}");
+        Debug.Print($"Pokemon:  0x{TradePartnerPokemonOffset:X16}");
     }
 
     public async Task DoTurboCommand(string command, CancellationToken token)

@@ -28,7 +28,6 @@ namespace Furfrou.WinForms;
     /// </summary>
     private void InitializeComponent()
     {
-        components = new System.ComponentModel.Container();
         System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
         GB_Connection = new GroupBox();
         TB_Status = new TextBox();
@@ -42,7 +41,6 @@ namespace Furfrou.WinForms;
         L_TID = new Label();
         TB_SID = new TextBox();
         TB_TID = new TextBox();
-        ResultsSource = new BindingSource(components);
         B_ReadPlayerB1S1 = new Button();
         B_ReadTrade = new Button();
         B_WritePlayerB1S1 = new Button();
@@ -77,7 +75,6 @@ namespace Furfrou.WinForms;
         L_PartnerTID = new Label();
         GB_Connection.SuspendLayout();
         GB_SAVInfo.SuspendLayout();
-        ((System.ComponentModel.ISupportInitialize)ResultsSource).BeginInit();
         SuspendLayout();
         // 
         // GB_Connection
@@ -211,10 +208,6 @@ namespace Furfrou.WinForms;
         TB_TID.Size = new Size(41, 22);
         TB_TID.TabIndex = 2;
         TB_TID.Text = "12345";
-        // 
-        // ResultsSource
-        // 
-        ResultsSource.DataSource = typeof(Core.Interfaces.RadarContinuationFrame);
         // 
         // B_ReadPlayerB1S1
         // 
@@ -586,7 +579,6 @@ namespace Furfrou.WinForms;
         GB_Connection.PerformLayout();
         GB_SAVInfo.ResumeLayout(false);
         GB_SAVInfo.PerformLayout();
-        ((System.ComponentModel.ISupportInitialize)ResultsSource).EndInit();
         ResumeLayout(false);
         PerformLayout();
     }
@@ -605,7 +597,6 @@ namespace Furfrou.WinForms;
     private Label L_TID;
     public TextBox TB_SID;
     public TextBox TB_TID;
-    private BindingSource ResultsSource;
     private Button B_ReadPlayerB1S1;
     private Button B_ReadTrade;
     private Button B_WritePlayerB1S1;

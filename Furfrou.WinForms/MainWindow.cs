@@ -1,9 +1,6 @@
 using Furfrou.Core.Connection;
-using Furfrou.Core.Interfaces;
-using Microsoft.VisualBasic;
 using PKHeX.Core;
 using SysBot.Base;
-using System.Globalization;
 using System.Text.Json;
 using static Furfrou.Core.Connection.Util;
 using static System.Buffers.Binary.BinaryPrimitives;
@@ -20,20 +17,6 @@ public partial class MainWindow : Form
     private readonly SwitchConnectionConfig ConnectionConfig;
 
     public readonly GameStrings Strings = GameInfo.GetStrings("en");
-
-    private bool stop;
-    private bool reset;
-    private bool readPause;
-    private bool flipPause;
-    private long flipTarget;
-    private bool forecast;
-    private long total;
-    private bool found;
-    private ulong remaining;
-
-    private RadarContinuationConfig _cfg = new();
-
-    List<RadarContinuationFrame> Frames = [];
 
     private readonly Version CurrentVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version!;
 
@@ -146,7 +129,6 @@ public partial class MainWindow : Form
             async () =>
             {
                 SetControlEnabledState(false, B_Disconnect);
-                stop = true;
                 try
                 {
                     (bool success, string err) = await ConnectionWrapper.DisconnectAsync(token).ConfigureAwait(false);
