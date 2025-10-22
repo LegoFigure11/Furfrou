@@ -1,7 +1,7 @@
 using System.Diagnostics;
 using System.Net.Sockets;
-using PKHeX.Core;
 using Furfrou.Core.Structures;
+using PKHeX.Core;
 using SysBot.Base;
 using static System.Buffers.Binary.BinaryPrimitives;
 using static SysBot.Base.SwitchButton;

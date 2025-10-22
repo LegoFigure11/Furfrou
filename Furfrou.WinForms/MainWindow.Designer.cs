@@ -73,6 +73,8 @@ namespace Furfrou.WinForms;
         L_PartnerSID = new Label();
         TB_PartnerTID = new TextBox();
         L_PartnerTID = new Label();
+        B_Save = new Button();
+        B_Load = new Button();
         GB_Connection.SuspendLayout();
         GB_SAVInfo.SuspendLayout();
         SuspendLayout();
@@ -533,11 +535,33 @@ namespace Furfrou.WinForms;
         L_PartnerTID.Text = "Trader TID:";
         L_PartnerTID.TextAlign = ContentAlignment.MiddleRight;
         // 
+        // B_Save
+        // 
+        B_Save.Location = new Point(11, 312);
+        B_Save.Name = "B_Save";
+        B_Save.Size = new Size(75, 25);
+        B_Save.TabIndex = 137;
+        B_Save.Text = "Save Bytes";
+        B_Save.UseVisualStyleBackColor = true;
+        B_Save.Click += B_Save_Click;
+        // 
+        // B_Load
+        // 
+        B_Load.Location = new Point(11, 340);
+        B_Load.Name = "B_Load";
+        B_Load.Size = new Size(75, 25);
+        B_Load.TabIndex = 138;
+        B_Load.Text = "Load File";
+        B_Load.UseVisualStyleBackColor = true;
+        B_Load.Click += B_Load_Click;
+        // 
         // MainWindow
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
         ClientSize = new Size(772, 370);
+        Controls.Add(B_Load);
+        Controls.Add(B_Save);
         Controls.Add(TB_PartnerSID);
         Controls.Add(L_PartnerSID);
         Controls.Add(TB_PartnerTID);
@@ -629,5 +653,7 @@ namespace Furfrou.WinForms;
     private Label L_PartnerSID;
     private TextBox TB_PartnerTID;
     private Label L_PartnerTID;
+    private Button B_Save;
+    private Button B_Load;
 }
 

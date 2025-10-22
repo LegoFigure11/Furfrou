@@ -1,9 +1,9 @@
+using System.Text.Json;
 using Furfrou.Core.Connection;
 using PKHeX.Core;
 using SysBot.Base;
-using System.Text.Json;
-using static Furfrou.Core.Connection.Util;
 using static System.Buffers.Binary.BinaryPrimitives;
+using static Furfrou.Core.Connection.Util;
 
 namespace Furfrou.WinForms;
 
@@ -360,5 +360,51 @@ public partial class MainWindow : Form
                 return;
             }
         });
+    }
+
+    private void B_Save_Click(object sender, EventArgs e)
+    {
+        SaveFileDialog Save = new()
+        {
+            Filter = "Encrypted Pokémon File (*.ea9)|*.ea9|Binary File (*.bin)|*.bin|All Files (*.*)|*.*",
+            Title = "Save As...",
+        };
+        if (Save.ShowDialog() == DialogResult.OK)
+        {
+            FileStream fs = new(Save.FileName, FileMode.Create);
+            BinaryWriter bw = new(fs);
+
+            var bytestring = TB_RAM.Text.Replace("\t", "").Replace(" ", "").Trim();
+            var Bytes = StringToByteArray(bytestring);
+
+            bw.Write(Bytes);
+            fs.Close();
+            bw.Close();
+        }
+    }
+
+    private void B_Load_Click(object sender, EventArgs e)
+    {
+        OpenFileDialog Open = new()
+        {
+            Title = "Select a File",
+            Filter = "Encrypted Pokémon File (*.ea9)|*.ea9|Binary File (*.bin)|*.bin|All Files (*.*)|*.*",
+            FilterIndex = 1,
+            RestoreDirectory = true,
+            Multiselect = false
+        };
+        if (Open.ShowDialog() == DialogResult.OK)
+        {
+            var file = Open.FileName;
+            try
+            {
+                var bytes = File.ReadAllBytes(file);
+                SetRAMText(bytes);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error reading file: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }
