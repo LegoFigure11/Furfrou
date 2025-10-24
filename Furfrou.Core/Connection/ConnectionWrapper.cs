@@ -28,6 +28,7 @@ public class ConnectionWrapperAsync(SwitchConnectionConfig Config, Action<string
     private ulong TradePartnerMyStatusOffset;
     private ulong TradePartnerNIDOffset;
     private ulong TradePartnerPokemonOffset;
+    private ulong WildPokemonOffset;
 
     public async Task<(bool, string)> Connect(CancellationToken token)
     {
@@ -164,6 +165,12 @@ public class ConnectionWrapperAsync(SwitchConnectionConfig Config, Action<string
         return await Connection.ReadBytesAbsoluteAsync(PlayerB1S1Offset, (int)PlayerB1S1Size, token).ConfigureAwait(false);
     }
 
+    public async Task<byte[]> ReadWildPokemon(CancellationToken token)
+    {
+        WildPokemonOffset = await Connection.PointerAll(WildPokemonPointer, token).ConfigureAwait(false);
+        return await Connection.ReadBytesAbsoluteAsync(WildPokemonOffset, (int)PlayerB1S1Size, token).ConfigureAwait(false);
+    }
+
     public async Task<byte[]> ReadTradePokemon(CancellationToken token)
     {
         return await Connection.ReadBytesAbsoluteAsync(TradePartnerPokemonOffset, (int)PlayerB1S1Size, token).ConfigureAwait(false);
@@ -190,5 +197,44 @@ public class ConnectionWrapperAsync(SwitchConnectionConfig Config, Action<string
         for (var i = 0; i < 30; i++) {
             await Connection.WriteBytesAbsoluteAsync(data, PlayerB1S1Offset + (ulong)(i * PlayerB1S1Size) + (ulong)(i * BoxPadding), token).ConfigureAwait(false);
         }
+    }
+
+    public async Task CloseGame(CancellationToken token)
+    {
+        StatusUpdate("Returning HOME...");
+        await Connection.SendAsync(Click(HOME, CRLF), token).ConfigureAwait(false);
+        await Task.Delay(3_000, token).ConfigureAwait(false);
+        StatusUpdate("Closing game...");
+        await Connection.SendAsync(Click(X, CRLF), token).ConfigureAwait(false);
+        await Task.Delay(1_000, token).ConfigureAwait(false);
+        await Connection.SendAsync(Click(A, CRLF), token).ConfigureAwait(false);
+        await Task.Delay(4_000, token).ConfigureAwait(false);
+    }
+
+    public async Task OpenGame(CancellationToken token)
+    {
+        StatusUpdate("Loading profile...");
+        await Connection.SendAsync(Click(A, CRLF), token).ConfigureAwait(false);
+        await Task.Delay(3_000, token).ConfigureAwait(false);
+
+        /*if (config.AvoidSystemUpdate)
+        {
+            StatusUpdate("Avoiding System Update...");
+            await Connection.SendAsync(Click(DUP, CRLF), token).ConfigureAwait(false);
+            await Task.Delay(0_600, token).ConfigureAwait(false);
+            await Connection.SendAsync(Click(A, CRLF), token).ConfigureAwait(false);
+            await Task.Delay(1_000 + config.ExtraTimeLoadProfile, token).ConfigureAwait(false);
+        }*/
+
+        StatusUpdate("Opening the game...");
+        await Connection.SendAsync(Click(A, CRLF), token).ConfigureAwait(false);
+        await Task.Delay(0_600, token).ConfigureAwait(false);
+
+        StatusUpdate("Loading game...");
+        await Task.Delay(10_000, token).ConfigureAwait(false);
+
+        StatusUpdate("Pressing A through Title Screen...");
+        await Connection.SendAsync(Click(A, CRLF), token).ConfigureAwait(false);
+        await Task.Delay(2_500, token).ConfigureAwait(false);
     }
 }

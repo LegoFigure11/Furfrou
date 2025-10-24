@@ -407,4 +407,137 @@ public partial class MainWindow : Form
             }
         }
     }
+
+    private void B_IV_Min_Click(object sender, EventArgs e)
+    {
+        var st = ((Button)sender).Name.Replace("B_", string.Empty).Replace("_Min", string.Empty);
+        List<string> stats = ModifierKeys == Keys.Shift ? ["HP", "Atk", "Def", "SpA", "SpD", "Spe"] : [st];
+        foreach (var stat in stats)
+        {
+            var min = (NumericUpDown)Controls.Find($"NUD_{stat}_Min", true).FirstOrDefault()!;
+            var max = (NumericUpDown)Controls.Find($"NUD_{stat}_Max", true).FirstOrDefault()!;
+            min.Value = 0;
+            max.Value = 0;
+        }
+    }
+
+    private void B_IV_Max_Click(object sender, EventArgs e)
+    {
+        var st = ((Button)sender).Name.Replace("B_", string.Empty).Replace("_Max", string.Empty);
+        List<string> stats = ModifierKeys == Keys.Shift ? ["HP", "Atk", "Def", "SpA", "SpD", "Spe"] : [st];
+        foreach (var stat in stats)
+        {
+            var min = (NumericUpDown)Controls.Find($"NUD_{stat}_Min", true).FirstOrDefault()!;
+            var max = (NumericUpDown)Controls.Find($"NUD_{stat}_Max", true).FirstOrDefault()!;
+            min.Value = 31;
+            max.Value = 31;
+        }
+    }
+
+    private void IV_Label_Click(object sender, EventArgs e)
+    {
+        var st = ((Label)sender).Name.Replace("L_", string.Empty);
+        List<string> stats = ModifierKeys == Keys.Shift ? ["HP", "Atk", "Def", "SpA", "SpD", "Spe"] : [st];
+        foreach (var stat in stats)
+        {
+            var min = (NumericUpDown)Controls.Find($"NUD_{stat}_Min", true).FirstOrDefault()!;
+            var max = (NumericUpDown)Controls.Find($"NUD_{stat}_Max", true).FirstOrDefault()!;
+            min.Value = 0;
+            max.Value = 31;
+        }
+    }
+
+    private void B_Reset_Click(object sender, EventArgs e)
+    {
+        Task.Run(async () =>
+        {
+            try
+            {
+                bool found = false;
+                var res = 0;
+                PK9 last = new();
+                while (!found && ConnectionWrapper is { Connected: true } && !Source.Token.IsCancellationRequested)
+                {
+                    UpdateStatus($"Resets: {res++}");
+                    PK9? pk;
+                    var targetIndex = GetComboBoxSelectedIndex(CB_Target);
+                    var target = targetIndex switch
+                    {
+                        2 => "Zygarde",
+                        1 => "Yveltal",
+                        _ => "Xerneas"
+                    };
+                    do
+                    {
+                        await ConnectionWrapper.DoTurboCommand("Y", Source.Token);
+                        await ConnectionWrapper.DoTurboCommand("A", Source.Token);
+                        var b = await ConnectionWrapper.ReadWildPokemon(Source.Token);
+                        SetRAMText(b);
+                        pk = new PK9(b);
+                        FillFields(pk);
+                    } while (Strings.Species[pk.Species] != target || ComparePkm(pk, last));
+
+                    int[] ivs = [pk.IV_HP, pk.IV_ATK, pk.IV_DEF, pk.IV_SPA, pk.IV_SPD, pk.IV_SPE];
+                    uint[] min =
+                    [
+                        GetNUDValue(NUD_HP_Min), GetNUDValue(NUD_Atk_Min), GetNUDValue(NUD_Def_Min),
+                        GetNUDValue(NUD_SpA_Min), GetNUDValue(NUD_SpD_Min), GetNUDValue(NUD_Spe_Min)
+                    ];
+                    uint[] max =
+                    [
+                        GetNUDValue(NUD_HP_Max), GetNUDValue(NUD_Atk_Max), GetNUDValue(NUD_Def_Max),
+                        GetNUDValue(NUD_SpA_Max), GetNUDValue(NUD_SpD_Max), GetNUDValue(NUD_Spe_Max)
+                    ];
+
+                    bool pass = true;
+                    for (var i = 0; i < ivs.Length; i++)
+                    {
+                        if ((ivs[i] >= min[i] && ivs[i] <= max[i]) || ivs[i] == 31) continue;
+                        pass = false;
+                        break;
+                    }
+
+                    if (pass)
+                    {
+                        var targetNatures = GetControlText(TB_Natures).ToLower();
+                        var nature = Strings.Natures[(int)pk.Nature].ToLower();
+                        found = targetNatures.Length == 0 || targetNatures.Contains(nature);
+                    }
+
+                    if (!pass || !found)
+                    {
+                        await ConnectionWrapper.CloseGame(Source.Token);
+                        await ConnectionWrapper.OpenGame(Source.Token);
+                        last = pk;
+                    }
+                }
+
+                UpdateStatus($"Result found! {res}");
+                await ConnectionWrapper.DoTurboCommand("HOME", Source.Token);
+                Disconnect(Source.Token);
+            }
+            catch (Exception ex)
+            {
+                //this.DisplayMessageBox(ex.Message, "Reset Error");
+                B_Reset_Click(sender, e);
+            }
+        });
+    }
+
+    public string GetControlText(Control c)
+    {
+        return (InvokeRequired ? Invoke(() => c.Text) : c.Text);
+    }
+
+    private static bool ComparePkm(PK9 a, PK9 b)
+    {
+        var _a = a.Data;
+        var _b = b.Data;
+        for (var i = 0; i < _a.Length; i++)
+        {
+            if (_a[i] != _b[i]) return false;
+        }
+
+        return true;
+    }
 }

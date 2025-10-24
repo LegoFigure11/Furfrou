@@ -13,5 +13,7 @@ public abstract class Offsets
     public static IReadOnlyList<long> TradePartnerMyStatusPointer { get; } = [0x3EFD058, 0x1D8, 0x198, 0x68, 0x74];
     public static IReadOnlyList<long> TradePartnerNIDPointer      { get; } = [0x5F0E2B0, 0x108];
     public static IReadOnlyList<long> TradePartnerPokemonPointer  { get; } = [0x5F0E2B0, 0x128, 0x30, 0x0];
+
+    public static IReadOnlyList<long> WildPokemonPointer          { get; } = [0x0];
 }
 

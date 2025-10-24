@@ -75,8 +75,61 @@ namespace Furfrou.WinForms;
         L_PartnerTID = new Label();
         B_Save = new Button();
         B_Load = new Button();
+        CB_Target = new ComboBox();
+        B_Spe_Max = new Button();
+        B_Spe_Min = new Button();
+        L_Spe = new Label();
+        L_SpeSpacer = new Label();
+        NUD_Spe_Max = new NumericUpDown();
+        NUD_Spe_Min = new NumericUpDown();
+        B_SpD_Max = new Button();
+        B_SpD_Min = new Button();
+        L_SpD = new Label();
+        L_SpDSpacer = new Label();
+        NUD_SpD_Max = new NumericUpDown();
+        NUD_SpD_Min = new NumericUpDown();
+        B_SpA_Max = new Button();
+        B_SpA_Min = new Button();
+        L_SpA = new Label();
+        L_SpASpacer = new Label();
+        NUD_SpA_Max = new NumericUpDown();
+        NUD_SpA_Min = new NumericUpDown();
+        B_Def_Max = new Button();
+        B_Def_Min = new Button();
+        L_Def = new Label();
+        L_DefSpacer = new Label();
+        NUD_Def_Max = new NumericUpDown();
+        NUD_Def_Min = new NumericUpDown();
+        B_Atk_Max = new Button();
+        B_Atk_Min = new Button();
+        L_Atk = new Label();
+        L_AtkSpacer = new Label();
+        NUD_Atk_Max = new NumericUpDown();
+        NUD_Atk_Min = new NumericUpDown();
+        B_HP_Max = new Button();
+        B_HP_Min = new Button();
+        L_HP = new Label();
+        L_HPSpacer = new Label();
+        NUD_HP_Max = new NumericUpDown();
+        NUD_HP_Min = new NumericUpDown();
+        L_Target = new Label();
+        L_TargetNature = new Label();
+        TB_Natures = new TextBox();
+        B_Reset = new Button();
         GB_Connection.SuspendLayout();
         GB_SAVInfo.SuspendLayout();
+        ((System.ComponentModel.ISupportInitialize)NUD_Spe_Max).BeginInit();
+        ((System.ComponentModel.ISupportInitialize)NUD_Spe_Min).BeginInit();
+        ((System.ComponentModel.ISupportInitialize)NUD_SpD_Max).BeginInit();
+        ((System.ComponentModel.ISupportInitialize)NUD_SpD_Min).BeginInit();
+        ((System.ComponentModel.ISupportInitialize)NUD_SpA_Max).BeginInit();
+        ((System.ComponentModel.ISupportInitialize)NUD_SpA_Min).BeginInit();
+        ((System.ComponentModel.ISupportInitialize)NUD_Def_Max).BeginInit();
+        ((System.ComponentModel.ISupportInitialize)NUD_Def_Min).BeginInit();
+        ((System.ComponentModel.ISupportInitialize)NUD_Atk_Max).BeginInit();
+        ((System.ComponentModel.ISupportInitialize)NUD_Atk_Min).BeginInit();
+        ((System.ComponentModel.ISupportInitialize)NUD_HP_Max).BeginInit();
+        ((System.ComponentModel.ISupportInitialize)NUD_HP_Min).BeginInit();
         SuspendLayout();
         // 
         // GB_Connection
@@ -555,11 +608,432 @@ namespace Furfrou.WinForms;
         B_Load.UseVisualStyleBackColor = true;
         B_Load.Click += B_Load_Click;
         // 
+        // CB_Target
+        // 
+        CB_Target.FormattingEnabled = true;
+        CB_Target.Items.AddRange(new object[] { "Xerneas", "Yveltal", "Zygarde" });
+        CB_Target.Location = new Point(834, 6);
+        CB_Target.Name = "CB_Target";
+        CB_Target.Size = new Size(138, 23);
+        CB_Target.TabIndex = 139;
+        // 
+        // B_Spe_Max
+        // 
+        B_Spe_Max.Location = new Point(945, 189);
+        B_Spe_Max.Name = "B_Spe_Max";
+        B_Spe_Max.Size = new Size(27, 25);
+        B_Spe_Max.TabIndex = 164;
+        B_Spe_Max.Text = "31";
+        B_Spe_Max.UseVisualStyleBackColor = true;
+        B_Spe_Max.Click += B_IV_Max_Click;
+        // 
+        // B_Spe_Min
+        // 
+        B_Spe_Min.Location = new Point(916, 189);
+        B_Spe_Min.Name = "B_Spe_Min";
+        B_Spe_Min.Size = new Size(27, 25);
+        B_Spe_Min.TabIndex = 163;
+        B_Spe_Min.Text = "0";
+        B_Spe_Min.UseVisualStyleBackColor = true;
+        B_Spe_Min.Click += B_IV_Min_Click;
+        // 
+        // L_Spe
+        // 
+        L_Spe.AutoSize = true;
+        L_Spe.Location = new Point(772, 192);
+        L_Spe.Name = "L_Spe";
+        L_Spe.Size = new Size(29, 15);
+        L_Spe.TabIndex = 176;
+        L_Spe.Text = "Spe:";
+        L_Spe.Click += IV_Label_Click;
+        // 
+        // L_SpeSpacer
+        // 
+        L_SpeSpacer.AutoSize = true;
+        L_SpeSpacer.Location = new Point(867, 192);
+        L_SpeSpacer.Name = "L_SpeSpacer";
+        L_SpeSpacer.Size = new Size(12, 15);
+        L_SpeSpacer.TabIndex = 171;
+        L_SpeSpacer.Text = "-";
+        // 
+        // NUD_Spe_Max
+        // 
+        NUD_Spe_Max.Location = new Point(879, 190);
+        NUD_Spe_Max.Maximum = new decimal(new int[] { 31, 0, 0, 0 });
+        NUD_Spe_Max.Name = "NUD_Spe_Max";
+        NUD_Spe_Max.Size = new Size(32, 23);
+        NUD_Spe_Max.TabIndex = 152;
+        NUD_Spe_Max.Value = new decimal(new int[] { 31, 0, 0, 0 });
+        // 
+        // NUD_Spe_Min
+        // 
+        NUD_Spe_Min.Location = new Point(834, 190);
+        NUD_Spe_Min.Maximum = new decimal(new int[] { 31, 0, 0, 0 });
+        NUD_Spe_Min.Name = "NUD_Spe_Min";
+        NUD_Spe_Min.Size = new Size(32, 23);
+        NUD_Spe_Min.TabIndex = 151;
+        // 
+        // B_SpD_Max
+        // 
+        B_SpD_Max.Location = new Point(945, 164);
+        B_SpD_Max.Name = "B_SpD_Max";
+        B_SpD_Max.Size = new Size(27, 25);
+        B_SpD_Max.TabIndex = 162;
+        B_SpD_Max.Text = "31";
+        B_SpD_Max.UseVisualStyleBackColor = true;
+        B_SpD_Max.Click += B_IV_Max_Click;
+        // 
+        // B_SpD_Min
+        // 
+        B_SpD_Min.Location = new Point(916, 164);
+        B_SpD_Min.Name = "B_SpD_Min";
+        B_SpD_Min.Size = new Size(27, 25);
+        B_SpD_Min.TabIndex = 161;
+        B_SpD_Min.Text = "0";
+        B_SpD_Min.UseVisualStyleBackColor = true;
+        B_SpD_Min.Click += B_IV_Min_Click;
+        // 
+        // L_SpD
+        // 
+        L_SpD.AutoSize = true;
+        L_SpD.Location = new Point(772, 167);
+        L_SpD.Name = "L_SpD";
+        L_SpD.Size = new Size(31, 15);
+        L_SpD.TabIndex = 175;
+        L_SpD.Text = "SpD:";
+        L_SpD.Click += IV_Label_Click;
+        // 
+        // L_SpDSpacer
+        // 
+        L_SpDSpacer.AutoSize = true;
+        L_SpDSpacer.Location = new Point(867, 167);
+        L_SpDSpacer.Name = "L_SpDSpacer";
+        L_SpDSpacer.Size = new Size(12, 15);
+        L_SpDSpacer.TabIndex = 170;
+        L_SpDSpacer.Text = "-";
+        // 
+        // NUD_SpD_Max
+        // 
+        NUD_SpD_Max.Location = new Point(879, 165);
+        NUD_SpD_Max.Maximum = new decimal(new int[] { 31, 0, 0, 0 });
+        NUD_SpD_Max.Name = "NUD_SpD_Max";
+        NUD_SpD_Max.Size = new Size(32, 23);
+        NUD_SpD_Max.TabIndex = 150;
+        NUD_SpD_Max.Value = new decimal(new int[] { 31, 0, 0, 0 });
+        // 
+        // NUD_SpD_Min
+        // 
+        NUD_SpD_Min.Location = new Point(834, 165);
+        NUD_SpD_Min.Maximum = new decimal(new int[] { 31, 0, 0, 0 });
+        NUD_SpD_Min.Name = "NUD_SpD_Min";
+        NUD_SpD_Min.Size = new Size(32, 23);
+        NUD_SpD_Min.TabIndex = 149;
+        // 
+        // B_SpA_Max
+        // 
+        B_SpA_Max.Location = new Point(945, 139);
+        B_SpA_Max.Name = "B_SpA_Max";
+        B_SpA_Max.Size = new Size(27, 25);
+        B_SpA_Max.TabIndex = 160;
+        B_SpA_Max.Text = "31";
+        B_SpA_Max.UseVisualStyleBackColor = true;
+        B_SpA_Max.Click += B_IV_Max_Click;
+        // 
+        // B_SpA_Min
+        // 
+        B_SpA_Min.Location = new Point(916, 139);
+        B_SpA_Min.Name = "B_SpA_Min";
+        B_SpA_Min.Size = new Size(27, 25);
+        B_SpA_Min.TabIndex = 159;
+        B_SpA_Min.Text = "0";
+        B_SpA_Min.UseVisualStyleBackColor = true;
+        B_SpA_Min.Click += B_IV_Min_Click;
+        // 
+        // L_SpA
+        // 
+        L_SpA.AutoSize = true;
+        L_SpA.Location = new Point(772, 142);
+        L_SpA.Name = "L_SpA";
+        L_SpA.Size = new Size(31, 15);
+        L_SpA.TabIndex = 174;
+        L_SpA.Text = "SpA:";
+        L_SpA.Click += IV_Label_Click;
+        // 
+        // L_SpASpacer
+        // 
+        L_SpASpacer.AutoSize = true;
+        L_SpASpacer.Location = new Point(867, 142);
+        L_SpASpacer.Name = "L_SpASpacer";
+        L_SpASpacer.Size = new Size(12, 15);
+        L_SpASpacer.TabIndex = 169;
+        L_SpASpacer.Text = "-";
+        // 
+        // NUD_SpA_Max
+        // 
+        NUD_SpA_Max.Location = new Point(879, 140);
+        NUD_SpA_Max.Maximum = new decimal(new int[] { 31, 0, 0, 0 });
+        NUD_SpA_Max.Name = "NUD_SpA_Max";
+        NUD_SpA_Max.Size = new Size(32, 23);
+        NUD_SpA_Max.TabIndex = 148;
+        NUD_SpA_Max.Value = new decimal(new int[] { 31, 0, 0, 0 });
+        // 
+        // NUD_SpA_Min
+        // 
+        NUD_SpA_Min.Location = new Point(834, 140);
+        NUD_SpA_Min.Maximum = new decimal(new int[] { 31, 0, 0, 0 });
+        NUD_SpA_Min.Name = "NUD_SpA_Min";
+        NUD_SpA_Min.Size = new Size(32, 23);
+        NUD_SpA_Min.TabIndex = 147;
+        // 
+        // B_Def_Max
+        // 
+        B_Def_Max.Location = new Point(945, 114);
+        B_Def_Max.Name = "B_Def_Max";
+        B_Def_Max.Size = new Size(27, 25);
+        B_Def_Max.TabIndex = 158;
+        B_Def_Max.Text = "31";
+        B_Def_Max.UseVisualStyleBackColor = true;
+        B_Def_Max.Click += B_IV_Max_Click;
+        // 
+        // B_Def_Min
+        // 
+        B_Def_Min.Location = new Point(916, 114);
+        B_Def_Min.Name = "B_Def_Min";
+        B_Def_Min.Size = new Size(27, 25);
+        B_Def_Min.TabIndex = 157;
+        B_Def_Min.Text = "0";
+        B_Def_Min.UseVisualStyleBackColor = true;
+        B_Def_Min.Click += B_IV_Min_Click;
+        // 
+        // L_Def
+        // 
+        L_Def.AutoSize = true;
+        L_Def.Location = new Point(772, 117);
+        L_Def.Name = "L_Def";
+        L_Def.Size = new Size(28, 15);
+        L_Def.TabIndex = 173;
+        L_Def.Text = "Def:";
+        L_Def.Click += IV_Label_Click;
+        // 
+        // L_DefSpacer
+        // 
+        L_DefSpacer.AutoSize = true;
+        L_DefSpacer.Location = new Point(867, 117);
+        L_DefSpacer.Name = "L_DefSpacer";
+        L_DefSpacer.Size = new Size(12, 15);
+        L_DefSpacer.TabIndex = 166;
+        L_DefSpacer.Text = "-";
+        // 
+        // NUD_Def_Max
+        // 
+        NUD_Def_Max.Location = new Point(879, 115);
+        NUD_Def_Max.Maximum = new decimal(new int[] { 31, 0, 0, 0 });
+        NUD_Def_Max.Name = "NUD_Def_Max";
+        NUD_Def_Max.Size = new Size(32, 23);
+        NUD_Def_Max.TabIndex = 146;
+        NUD_Def_Max.Value = new decimal(new int[] { 31, 0, 0, 0 });
+        // 
+        // NUD_Def_Min
+        // 
+        NUD_Def_Min.Location = new Point(834, 115);
+        NUD_Def_Min.Maximum = new decimal(new int[] { 31, 0, 0, 0 });
+        NUD_Def_Min.Name = "NUD_Def_Min";
+        NUD_Def_Min.Size = new Size(32, 23);
+        NUD_Def_Min.TabIndex = 145;
+        // 
+        // B_Atk_Max
+        // 
+        B_Atk_Max.Location = new Point(945, 89);
+        B_Atk_Max.Name = "B_Atk_Max";
+        B_Atk_Max.Size = new Size(27, 25);
+        B_Atk_Max.TabIndex = 156;
+        B_Atk_Max.Text = "31";
+        B_Atk_Max.UseVisualStyleBackColor = true;
+        B_Atk_Max.Click += B_IV_Max_Click;
+        // 
+        // B_Atk_Min
+        // 
+        B_Atk_Min.Location = new Point(916, 89);
+        B_Atk_Min.Name = "B_Atk_Min";
+        B_Atk_Min.Size = new Size(27, 25);
+        B_Atk_Min.TabIndex = 155;
+        B_Atk_Min.Text = "0";
+        B_Atk_Min.UseVisualStyleBackColor = true;
+        B_Atk_Min.Click += B_IV_Min_Click;
+        // 
+        // L_Atk
+        // 
+        L_Atk.AutoSize = true;
+        L_Atk.Location = new Point(772, 92);
+        L_Atk.Name = "L_Atk";
+        L_Atk.Size = new Size(28, 15);
+        L_Atk.TabIndex = 172;
+        L_Atk.Text = "Atk:";
+        L_Atk.Click += IV_Label_Click;
+        // 
+        // L_AtkSpacer
+        // 
+        L_AtkSpacer.AutoSize = true;
+        L_AtkSpacer.Location = new Point(867, 92);
+        L_AtkSpacer.Name = "L_AtkSpacer";
+        L_AtkSpacer.Size = new Size(12, 15);
+        L_AtkSpacer.TabIndex = 165;
+        L_AtkSpacer.Text = "-";
+        // 
+        // NUD_Atk_Max
+        // 
+        NUD_Atk_Max.Location = new Point(879, 90);
+        NUD_Atk_Max.Maximum = new decimal(new int[] { 31, 0, 0, 0 });
+        NUD_Atk_Max.Name = "NUD_Atk_Max";
+        NUD_Atk_Max.Size = new Size(32, 23);
+        NUD_Atk_Max.TabIndex = 144;
+        NUD_Atk_Max.Value = new decimal(new int[] { 31, 0, 0, 0 });
+        // 
+        // NUD_Atk_Min
+        // 
+        NUD_Atk_Min.Location = new Point(834, 90);
+        NUD_Atk_Min.Maximum = new decimal(new int[] { 31, 0, 0, 0 });
+        NUD_Atk_Min.Name = "NUD_Atk_Min";
+        NUD_Atk_Min.Size = new Size(32, 23);
+        NUD_Atk_Min.TabIndex = 143;
+        // 
+        // B_HP_Max
+        // 
+        B_HP_Max.Location = new Point(945, 64);
+        B_HP_Max.Name = "B_HP_Max";
+        B_HP_Max.Size = new Size(27, 25);
+        B_HP_Max.TabIndex = 154;
+        B_HP_Max.Text = "31";
+        B_HP_Max.UseVisualStyleBackColor = true;
+        B_HP_Max.Click += B_IV_Max_Click;
+        // 
+        // B_HP_Min
+        // 
+        B_HP_Min.Location = new Point(916, 64);
+        B_HP_Min.Name = "B_HP_Min";
+        B_HP_Min.Size = new Size(27, 25);
+        B_HP_Min.TabIndex = 153;
+        B_HP_Min.Text = "0";
+        B_HP_Min.UseVisualStyleBackColor = true;
+        B_HP_Min.Click += B_IV_Min_Click;
+        // 
+        // L_HP
+        // 
+        L_HP.AutoSize = true;
+        L_HP.Location = new Point(772, 67);
+        L_HP.Name = "L_HP";
+        L_HP.Size = new Size(26, 15);
+        L_HP.TabIndex = 168;
+        L_HP.Text = "HP:";
+        L_HP.Click += IV_Label_Click;
+        // 
+        // L_HPSpacer
+        // 
+        L_HPSpacer.AutoSize = true;
+        L_HPSpacer.Location = new Point(867, 67);
+        L_HPSpacer.Name = "L_HPSpacer";
+        L_HPSpacer.Size = new Size(12, 15);
+        L_HPSpacer.TabIndex = 167;
+        L_HPSpacer.Text = "-";
+        // 
+        // NUD_HP_Max
+        // 
+        NUD_HP_Max.Location = new Point(879, 65);
+        NUD_HP_Max.Maximum = new decimal(new int[] { 31, 0, 0, 0 });
+        NUD_HP_Max.Name = "NUD_HP_Max";
+        NUD_HP_Max.Size = new Size(32, 23);
+        NUD_HP_Max.TabIndex = 142;
+        NUD_HP_Max.Value = new decimal(new int[] { 31, 0, 0, 0 });
+        // 
+        // NUD_HP_Min
+        // 
+        NUD_HP_Min.Location = new Point(834, 65);
+        NUD_HP_Min.Maximum = new decimal(new int[] { 31, 0, 0, 0 });
+        NUD_HP_Min.Name = "NUD_HP_Min";
+        NUD_HP_Min.Size = new Size(32, 23);
+        NUD_HP_Min.TabIndex = 141;
+        // 
+        // L_Target
+        // 
+        L_Target.AutoSize = true;
+        L_Target.Location = new Point(772, 9);
+        L_Target.Name = "L_Target";
+        L_Target.Size = new Size(42, 15);
+        L_Target.TabIndex = 177;
+        L_Target.Text = "Target:";
+        // 
+        // L_TargetNature
+        // 
+        L_TargetNature.AutoSize = true;
+        L_TargetNature.Location = new Point(772, 36);
+        L_TargetNature.Name = "L_TargetNature";
+        L_TargetNature.Size = new Size(59, 15);
+        L_TargetNature.TabIndex = 178;
+        L_TargetNature.Text = "Nature(s):";
+        // 
+        // TB_Natures
+        // 
+        TB_Natures.Location = new Point(834, 33);
+        TB_Natures.Name = "TB_Natures";
+        TB_Natures.Size = new Size(138, 23);
+        TB_Natures.TabIndex = 179;
+        // 
+        // B_Reset
+        // 
+        B_Reset.Location = new Point(772, 219);
+        B_Reset.Name = "B_Reset";
+        B_Reset.Size = new Size(200, 25);
+        B_Reset.TabIndex = 180;
+        B_Reset.Text = "Reset Encounter";
+        B_Reset.UseVisualStyleBackColor = true;
+        B_Reset.Click += B_Reset_Click;
+        // 
         // MainWindow
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
-        ClientSize = new Size(772, 370);
+        ClientSize = new Size(978, 370);
+        Controls.Add(B_Reset);
+        Controls.Add(TB_Natures);
+        Controls.Add(L_TargetNature);
+        Controls.Add(L_Target);
+        Controls.Add(B_Spe_Max);
+        Controls.Add(B_Spe_Min);
+        Controls.Add(L_Spe);
+        Controls.Add(L_SpeSpacer);
+        Controls.Add(NUD_Spe_Max);
+        Controls.Add(NUD_Spe_Min);
+        Controls.Add(B_SpD_Max);
+        Controls.Add(B_SpD_Min);
+        Controls.Add(L_SpD);
+        Controls.Add(L_SpDSpacer);
+        Controls.Add(NUD_SpD_Max);
+        Controls.Add(NUD_SpD_Min);
+        Controls.Add(B_SpA_Max);
+        Controls.Add(B_SpA_Min);
+        Controls.Add(L_SpA);
+        Controls.Add(L_SpASpacer);
+        Controls.Add(NUD_SpA_Max);
+        Controls.Add(NUD_SpA_Min);
+        Controls.Add(B_Def_Max);
+        Controls.Add(B_Def_Min);
+        Controls.Add(L_Def);
+        Controls.Add(L_DefSpacer);
+        Controls.Add(NUD_Def_Max);
+        Controls.Add(NUD_Def_Min);
+        Controls.Add(B_Atk_Max);
+        Controls.Add(B_Atk_Min);
+        Controls.Add(L_Atk);
+        Controls.Add(L_AtkSpacer);
+        Controls.Add(NUD_Atk_Max);
+        Controls.Add(NUD_Atk_Min);
+        Controls.Add(B_HP_Max);
+        Controls.Add(B_HP_Min);
+        Controls.Add(L_HP);
+        Controls.Add(L_HPSpacer);
+        Controls.Add(NUD_HP_Max);
+        Controls.Add(NUD_HP_Min);
+        Controls.Add(CB_Target);
         Controls.Add(B_Load);
         Controls.Add(B_Save);
         Controls.Add(TB_PartnerSID);
@@ -603,6 +1077,18 @@ namespace Furfrou.WinForms;
         GB_Connection.PerformLayout();
         GB_SAVInfo.ResumeLayout(false);
         GB_SAVInfo.PerformLayout();
+        ((System.ComponentModel.ISupportInitialize)NUD_Spe_Max).EndInit();
+        ((System.ComponentModel.ISupportInitialize)NUD_Spe_Min).EndInit();
+        ((System.ComponentModel.ISupportInitialize)NUD_SpD_Max).EndInit();
+        ((System.ComponentModel.ISupportInitialize)NUD_SpD_Min).EndInit();
+        ((System.ComponentModel.ISupportInitialize)NUD_SpA_Max).EndInit();
+        ((System.ComponentModel.ISupportInitialize)NUD_SpA_Min).EndInit();
+        ((System.ComponentModel.ISupportInitialize)NUD_Def_Max).EndInit();
+        ((System.ComponentModel.ISupportInitialize)NUD_Def_Min).EndInit();
+        ((System.ComponentModel.ISupportInitialize)NUD_Atk_Max).EndInit();
+        ((System.ComponentModel.ISupportInitialize)NUD_Atk_Min).EndInit();
+        ((System.ComponentModel.ISupportInitialize)NUD_HP_Max).EndInit();
+        ((System.ComponentModel.ISupportInitialize)NUD_HP_Min).EndInit();
         ResumeLayout(false);
         PerformLayout();
     }
@@ -655,5 +1141,46 @@ namespace Furfrou.WinForms;
     private Label L_PartnerTID;
     private Button B_Save;
     private Button B_Load;
+    private ComboBox CB_Target;
+    private Button B_Spe_Max;
+    private Button B_Spe_Min;
+    private Label L_Spe;
+    private Label L_SpeSpacer;
+    private NumericUpDown NUD_Spe_Max;
+    private NumericUpDown NUD_Spe_Min;
+    private Button B_SpD_Max;
+    private Button B_SpD_Min;
+    private Label L_SpD;
+    private Label L_SpDSpacer;
+    private NumericUpDown NUD_SpD_Max;
+    private NumericUpDown NUD_SpD_Min;
+    private Button B_SpA_Max;
+    private Button B_SpA_Min;
+    private Label L_SpA;
+    private Label L_SpASpacer;
+    private NumericUpDown NUD_SpA_Max;
+    private NumericUpDown NUD_SpA_Min;
+    private Button B_Def_Max;
+    private Button B_Def_Min;
+    private Label L_Def;
+    private Label L_DefSpacer;
+    private NumericUpDown NUD_Def_Max;
+    private NumericUpDown NUD_Def_Min;
+    private Button B_Atk_Max;
+    private Button B_Atk_Min;
+    private Label L_Atk;
+    private Label L_AtkSpacer;
+    private NumericUpDown NUD_Atk_Max;
+    private NumericUpDown NUD_Atk_Min;
+    private Button B_HP_Max;
+    private Button B_HP_Min;
+    private Label L_HP;
+    private Label L_HPSpacer;
+    private NumericUpDown NUD_HP_Max;
+    private NumericUpDown NUD_HP_Min;
+    private Label L_Target;
+    private Label L_TargetNature;
+    private TextBox TB_Natures;
+    private Button B_Reset;
 }
 
