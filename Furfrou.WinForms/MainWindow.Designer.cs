@@ -116,6 +116,7 @@ namespace Furfrou.WinForms;
         L_TargetNature = new Label();
         TB_Natures = new TextBox();
         B_Reset = new Button();
+        B_ShinyStash = new Button();
         GB_Connection.SuspendLayout();
         GB_SAVInfo.SuspendLayout();
         ((System.ComponentModel.ISupportInitialize)NUD_Spe_Max).BeginInit();
@@ -988,11 +989,22 @@ namespace Furfrou.WinForms;
         B_Reset.UseVisualStyleBackColor = true;
         B_Reset.Click += B_Reset_Click;
         // 
+        // B_ShinyStash
+        // 
+        B_ShinyStash.Location = new Point(772, 250);
+        B_ShinyStash.Name = "B_ShinyStash";
+        B_ShinyStash.Size = new Size(200, 25);
+        B_ShinyStash.TabIndex = 181;
+        B_ShinyStash.Text = "Read Shiny Stash";
+        B_ShinyStash.UseVisualStyleBackColor = true;
+        B_ShinyStash.Click += B_ShinyStash_Click;
+        // 
         // MainWindow
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
         ClientSize = new Size(978, 370);
+        Controls.Add(B_ShinyStash);
         Controls.Add(B_Reset);
         Controls.Add(TB_Natures);
         Controls.Add(L_TargetNature);
@@ -1182,5 +1194,6 @@ namespace Furfrou.WinForms;
     private Label L_TargetNature;
     private TextBox TB_Natures;
     private Button B_Reset;
+    private Button B_ShinyStash;
 }
 

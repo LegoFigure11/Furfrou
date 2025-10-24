@@ -540,4 +540,42 @@ public partial class MainWindow : Form
 
         return true;
     }
+
+    private void B_ShinyStash_Click(object sender, EventArgs e)
+    {
+        Task.Run(async () =>
+        {
+            try
+            {
+                var pks = await ConnectionWrapper.ReadShinyStash(Source.Token).ConfigureAwait(false);
+                if (pks.Count == 0)
+                {
+                    MessageBox.Show("No stashed shinies found.");
+                }
+                else
+                {
+                    var s = $"Stashed Shinies: {pks.Count}\n\n";
+
+                    foreach (var pk in pks)
+                    {
+                        var gender = pk.Gender switch
+                        {
+                            0 => " (M)",
+                            1 => " (F)",
+                            _ => "",
+                        };
+                        s +=
+                            $"{Strings.Species[pk.Species]}{gender} - {Strings.Natures[(int)pk.Nature]} - {pk.IV_HP:D2}/{pk.IV_ATK:D2}/{pk.IV_DEF:D2}/{pk.IV_SPA:D2}/{pk.IV_SPD:D2}/{pk.IV_SPE:D2}\n";
+                    }
+
+                    MessageBox.Show(s);
+                }
+            }
+            catch (Exception ex)
+            {
+                this.DisplayMessageBox(ex.Message, "Shiny Stash Error");
+            }
+        });
+
+    }
 }

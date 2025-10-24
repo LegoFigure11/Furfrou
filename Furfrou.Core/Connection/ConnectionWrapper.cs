@@ -28,6 +28,7 @@ public class ConnectionWrapperAsync(SwitchConnectionConfig Config, Action<string
     private ulong TradePartnerMyStatusOffset;
     private ulong TradePartnerNIDOffset;
     private ulong TradePartnerPokemonOffset;
+    private ulong ShinyStashOffset;
     private ulong WildPokemonOffset;
 
     public async Task<(bool, string)> Connect(CancellationToken token)
@@ -185,6 +186,22 @@ public class ConnectionWrapperAsync(SwitchConnectionConfig Config, Action<string
     public async Task<byte[]> ReadTradeMyStatus(CancellationToken token)
     {
         return await Connection.ReadBytesAbsoluteAsync(TradePartnerMyStatusOffset, 120,  token).ConfigureAwait(false);
+    }
+
+    public async Task<List<PK9>> ReadShinyStash(CancellationToken token)
+    {
+        List<PK9> l = [];
+        ShinyStashOffset = await Connection.PointerAll(CachedShinyBlockPointer, token).ConfigureAwait(false);
+        for (var i = 0; i < 10; i++)
+        {
+            var bytes = await Connection.ReadBytesAbsoluteAsync(ShinyStashOffset + (ulong)(i * 0x1f0), 344, token)
+                .ConfigureAwait(false);
+
+            var pk = new PK9(bytes);
+            if (pk.Species != 0) l.Add(pk);
+        }
+
+        return l;
     }
 
     public async Task WriteB1S1(byte[] data, CancellationToken token)
