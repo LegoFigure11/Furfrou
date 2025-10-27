@@ -188,16 +188,16 @@ public class ConnectionWrapperAsync(SwitchConnectionConfig Config, Action<string
         return await Connection.ReadBytesAbsoluteAsync(TradePartnerMyStatusOffset, 120,  token).ConfigureAwait(false);
     }
 
-    public async Task<List<PK9>> ReadShinyStash(CancellationToken token)
+    public async Task<List<PA9>> ReadShinyStash(CancellationToken token)
     {
-        List<PK9> l = [];
+        List<PA9> l = [];
         ShinyStashOffset = await Connection.PointerAll(CachedShinyBlockPointer, token).ConfigureAwait(false);
         for (var i = 0; i < 10; i++)
         {
             var bytes = await Connection.ReadBytesAbsoluteAsync(ShinyStashOffset + (ulong)(i * 0x1f0), 344, token)
                 .ConfigureAwait(false);
 
-            var pk = new PK9(bytes);
+            var pk = new PA9(bytes);
             if (pk.Species != 0) l.Add(pk);
         }
 

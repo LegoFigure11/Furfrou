@@ -244,7 +244,7 @@ public partial class MainWindow : Form
                     var bytestring = TB_RAM.Text.Replace("\t", "").Replace(" ", "").Trim();
                     if (bytestring.Length != 688) throw new Exception($"Data is not the correct length! Aborting write.\n\nExpected: 344\nReceived: {bytestring.Length / 2}");
                     var bytes = StringToByteArray(bytestring);
-                    PK9 pk = new(bytes);
+                    PA9 pk = new(bytes);
                     if (!pk.ChecksumValid) throw new Exception("Data does not contain a valid checksum! Aborting write.");
                     var data = StringToByteArray(bytestring);
                     await ConnectionWrapper.WriteB1S1(data, Source.Token).ConfigureAwait(false);
@@ -267,7 +267,7 @@ public partial class MainWindow : Form
                     var bytestring = TB_RAM.Text.Replace("\t", "").Replace(" ", "").Trim();
                     if (bytestring.Length != 688) throw new Exception($"Data is not the correct length! Aborting write.\n\nExpected: 344\nReceived: {bytestring.Length / 2}");
                     var bytes = StringToByteArray(bytestring);
-                    PK9 pk = new(bytes);
+                    PA9 pk = new(bytes);
                     if (!pk.ChecksumValid) throw new Exception("Data does not contain a valid checksum! Aborting write.");
                     var data = StringToByteArray(bytestring);
                     await ConnectionWrapper.WriteWholeBox(data, Source.Token).ConfigureAwait(false);
@@ -297,7 +297,7 @@ public partial class MainWindow : Form
                 var Data = await ConnectionWrapper.ReadB1S1(Source.Token).ConfigureAwait(false);
                 SetRAMText(Data);
 
-                PK9 pk = new(Data);
+                PA9 pk = new(Data);
                 FillFields(pk);
             }
             catch (Exception ex)
@@ -308,7 +308,7 @@ public partial class MainWindow : Form
         });
     }
 
-    private void FillFields(PK9 pk)
+    private void FillFields(PA9 pk)
     {
         string gender = pk.Gender switch
         {
@@ -351,7 +351,7 @@ public partial class MainWindow : Form
 
                 SetTextBoxText(ot, TB_PartnerOT);
 
-                PK9 pk = new(Data);
+                PA9 pk = new(Data);
                 if (pk.ChecksumValid) FillFields(pk);
             }
             catch (Exception ex)
@@ -455,11 +455,11 @@ public partial class MainWindow : Form
             {
                 bool found = false;
                 var res = 0;
-                PK9 last = new();
+                PA9 last = new();
                 while (!found && ConnectionWrapper is { Connected: true } && !Source.Token.IsCancellationRequested)
                 {
                     UpdateStatus($"Resets: {res++}");
-                    PK9? pk;
+                    PA9? pk;
                     var targetIndex = GetComboBoxSelectedIndex(CB_Target);
                     var target = targetIndex switch
                     {
@@ -473,7 +473,7 @@ public partial class MainWindow : Form
                         await ConnectionWrapper.DoTurboCommand("A", Source.Token);
                         var b = await ConnectionWrapper.ReadWildPokemon(Source.Token);
                         SetRAMText(b);
-                        pk = new PK9(b);
+                        pk = new PA9(b);
                         FillFields(pk);
                     } while (Strings.Species[pk.Species] != target || ComparePkm(pk, last));
 
@@ -529,7 +529,7 @@ public partial class MainWindow : Form
         return (InvokeRequired ? Invoke(() => c.Text) : c.Text);
     }
 
-    private static bool ComparePkm(PK9 a, PK9 b)
+    private static bool ComparePkm(PA9 a, PA9 b)
     {
         var _a = a.Data;
         var _b = b.Data;
