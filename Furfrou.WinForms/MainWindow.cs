@@ -564,9 +564,9 @@ public partial class MainWindow : Form
                             1 => " (F)",
                             _ => "",
                         };
-                        var alpha = pk is IAlpha { IsAlpha: true } ? "-α" : string.Empty;
+                        var alpha = pk is IAlpha { IsAlpha: true } ? "α-" : string.Empty;
                         s +=
-                            $"{Strings.Species[pk.Species]}{alpha}{gender} - {Strings.Natures[(int)pk.Nature]} - {pk.IV_HP:D2}/{pk.IV_ATK:D2}/{pk.IV_DEF:D2}/{pk.IV_SPA:D2}/{pk.IV_SPD:D2}/{pk.IV_SPE:D2}\n";
+                            $"{alpha}{Strings.Species[pk.Species]}{gender} - {Strings.Natures[(int)pk.Nature]} - {pk.IV_HP:D2}/{pk.IV_ATK:D2}/{pk.IV_DEF:D2}/{pk.IV_SPA:D2}/{pk.IV_SPD:D2}/{pk.IV_SPE:D2}\n";
                     }
 
                     MessageBox.Show(s);
