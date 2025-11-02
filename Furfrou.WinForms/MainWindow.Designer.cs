@@ -212,6 +212,7 @@ namespace Furfrou.WinForms;
         TB_SwitchIP.Size = new Size(111, 22);
         TB_SwitchIP.TabIndex = 0;
         TB_SwitchIP.Text = "123.123.123.123";
+        TB_SwitchIP.TextChanged += TB_SwitchIP_TextChanged;
         // 
         // GB_SAVInfo
         // 
@@ -253,6 +254,7 @@ namespace Furfrou.WinForms;
         TB_SID.Size = new Size(41, 22);
         TB_SID.TabIndex = 3;
         TB_SID.Text = "54321";
+        TB_SID.TextChanged += TB_SID_TextChanged;
         // 
         // TB_TID
         // 
@@ -264,6 +266,7 @@ namespace Furfrou.WinForms;
         TB_TID.Size = new Size(41, 22);
         TB_TID.TabIndex = 2;
         TB_TID.Text = "12345";
+        TB_TID.TextChanged += TB_TID_TextChanged;
         // 
         // B_ReadPlayerB1S1
         // 
@@ -1084,6 +1087,7 @@ namespace Furfrou.WinForms;
         Controls.Add(GB_SAVInfo);
         Icon = (Icon)resources.GetObject("$this.Icon");
         Name = "MainWindow";
+        FormClosing += MainWindow_FormClosing;
         Load += MainWindow_Load;
         GB_Connection.ResumeLayout(false);
         GB_Connection.PerformLayout();

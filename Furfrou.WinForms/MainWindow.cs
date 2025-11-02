@@ -566,7 +566,7 @@ public partial class MainWindow : Form
                         };
                         var alpha = pk is IAlpha { IsAlpha: true } ? "α-" : string.Empty;
                         s +=
-                            $"{alpha}{Strings.Species[pk.Species]}{gender} - {Strings.Natures[(int)pk.Nature]} - {pk.IV_HP:D2}/{pk.IV_ATK:D2}/{pk.IV_DEF:D2}/{pk.IV_SPA:D2}/{pk.IV_SPD:D2}/{pk.IV_SPE:D2}\n";
+                            $"{alpha}{Strings.Species[pk.Species]}{gender} - {Strings.Natures[(int)pk.Nature]} - {pk.IV_HP:D2}/{pk.IV_ATK:D2}/{pk.IV_DEF:D2}/{pk.IV_SPA:D2}/{pk.IV_SPD:D2}/{pk.IV_SPE:D2} (Lv. {pk.CurrentLevel})\n";
                     }
 
                     MessageBox.Show(s);
@@ -578,5 +578,67 @@ public partial class MainWindow : Form
             }
         });
 
+    }
+
+    private void TB_TID_TextChanged(object sender, EventArgs e)
+    {
+        if (TB_TID.Text.Length > 0)
+        {
+            var tid = int.Parse(TB_TID.Text);
+            Config.TID = tid;
+        }
+    }
+
+    private void TB_SID_TextChanged(object sender, EventArgs e)
+    {
+        if (TB_SID.Text.Length > 0)
+        {
+            var sid = int.Parse(TB_SID.Text);
+            Config.SID = sid;
+        }
+    }
+
+    private void TB_SwitchIP_TextChanged(object sender, EventArgs e)
+    {
+        if (Config.Protocol is SwitchProtocol.WiFi)
+        {
+            Config.IP = TB_SwitchIP.Text;
+            ConnectionConfig.IP = TB_SwitchIP.Text;
+        }
+        else
+        {
+            if (int.TryParse(TB_SwitchIP.Text, out int port) && port >= 0)
+            {
+                Config.UsbPort = port;
+                ConnectionConfig.Port = port;
+                return;
+            }
+
+            MessageBox.Show("Please enter a valid numerical USB port.");
+        }
+    }
+
+    private readonly JsonSerializerOptions options = new() { WriteIndented = true };
+    private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
+    {
+        var configpath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "config.json");
+        string output = JsonSerializer.Serialize(Config, options);
+        using StreamWriter sw = new(configpath);
+        sw.Write(output);
+
+        if (ConnectionWrapper is { Connected: true })
+        {
+            try
+            {
+                _ = ConnectionWrapper.DisconnectAsync(Source.Token).ConfigureAwait(false);
+            }
+            catch
+            {
+                // ignored
+            }
+        }
+
+        Source.Cancel();
+        Source = new();
     }
 }
