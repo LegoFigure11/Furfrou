@@ -166,9 +166,18 @@ public class ConnectionWrapperAsync(SwitchConnectionConfig Config, Action<string
         return await Connection.ReadBytesAbsoluteAsync(PlayerB1S1Offset, (int)PlayerB1S1Size, token).ConfigureAwait(false);
     }
 
-    public async Task<byte[]> ReadWildPokemon(CancellationToken token)
+    public async Task<byte[]> ReadWildPokemon(CancellationToken token, int location = 0)
     {
         WildPokemonOffset = await Connection.PointerAll(WildPokemonPointer, token).ConfigureAwait(false);
+        bool add = location >= 0;
+        if (add)
+        {
+            WildPokemonOffset += (uint)location * 0x180;
+        }
+        else
+        {
+            WildPokemonOffset -= (uint)location * 0x180;
+        }
         return await Connection.ReadBytesAbsoluteAsync(WildPokemonOffset, (int)PlayerB1S1Size, token).ConfigureAwait(false);
     }
 
