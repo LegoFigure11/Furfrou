@@ -704,7 +704,7 @@ public partial class MainWindow : Form
             catch (Exception ex)
             {
                 //this.DisplayMessageBox(ex.Message, "Reset Error");
-                B_Reset_Click(sender, e);
+                B_Floette_Click(sender, e);
             }
         });
     }
