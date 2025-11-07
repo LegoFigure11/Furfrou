@@ -117,6 +117,7 @@ namespace Furfrou.WinForms;
         TB_Natures = new TextBox();
         B_Reset = new Button();
         B_ShinyStash = new Button();
+        B_Floette = new Button();
         GB_Connection.SuspendLayout();
         GB_SAVInfo.SuspendLayout();
         ((System.ComponentModel.ISupportInitialize)NUD_Spe_Max).BeginInit();
@@ -1002,11 +1003,22 @@ namespace Furfrou.WinForms;
         B_ShinyStash.UseVisualStyleBackColor = true;
         B_ShinyStash.Click += B_ShinyStash_Click;
         // 
+        // B_Floette
+        // 
+        B_Floette.Location = new Point(772, 340);
+        B_Floette.Name = "B_Floette";
+        B_Floette.Size = new Size(200, 25);
+        B_Floette.TabIndex = 182;
+        B_Floette.Text = "Reset AZ Floette";
+        B_Floette.UseVisualStyleBackColor = true;
+        B_Floette.Click += B_Floette_Click;
+        // 
         // MainWindow
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
         ClientSize = new Size(978, 370);
+        Controls.Add(B_Floette);
         Controls.Add(B_ShinyStash);
         Controls.Add(B_Reset);
         Controls.Add(TB_Natures);
@@ -1199,5 +1211,6 @@ namespace Furfrou.WinForms;
     private TextBox TB_Natures;
     private Button B_Reset;
     private Button B_ShinyStash;
+    private Button B_Floette;
 }
 

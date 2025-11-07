@@ -161,8 +161,9 @@ public class ConnectionWrapperAsync(SwitchConnectionConfig Config, Action<string
         return ($"{myStatus.TID16:D05}", $"{myStatus.SID16:D05}");
     }
 
-    public async Task<byte[]> ReadB1S1(CancellationToken token)
+    public async Task<byte[]> ReadB1S1(CancellationToken token, bool refresh = false)
     {
+        if (refresh) PlayerB1S1Offset = await Connection.PointerAll(PlayerB1S1Pointer, token).ConfigureAwait(false);
         return await Connection.ReadBytesAbsoluteAsync(PlayerB1S1Offset, (int)PlayerB1S1Size, token).ConfigureAwait(false);
     }
 

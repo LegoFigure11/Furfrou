@@ -641,4 +641,71 @@ public partial class MainWindow : Form
         Source.Cancel();
         Source = new();
     }
+
+    private void B_Floette_Click(object sender, EventArgs e)
+    {
+        Task.Run(async () =>
+        {
+            try
+            {
+                bool found = false;
+                var res = 0;
+                PA9 last = new();
+                while (!found && ConnectionWrapper is { Connected: true } && !Source.Token.IsCancellationRequested)
+                {
+                    UpdateStatus($"Resets: {res++}");
+                    PA9? pk;
+                    do
+                    {
+                        await ConnectionWrapper.DoTurboCommand("A", Source.Token);
+                        var b = await ConnectionWrapper.ReadB1S1(Source.Token, true);
+                        SetRAMText(b);
+                        pk = new PA9(b);
+                        FillFields(pk);
+                    } while (pk.Species != (ushort)Species.Floette || ComparePkm(pk, last));
+
+                    int[] ivs = [pk.IV_HP, pk.IV_ATK, pk.IV_DEF, pk.IV_SPA, pk.IV_SPD, pk.IV_SPE];
+                    uint[] min =
+                    [
+                        GetNUDValue(NUD_HP_Min), GetNUDValue(NUD_Atk_Min), GetNUDValue(NUD_Def_Min),
+                        GetNUDValue(NUD_SpA_Min), GetNUDValue(NUD_SpD_Min), GetNUDValue(NUD_Spe_Min)
+                    ];
+                    uint[] max =
+                    [
+                        GetNUDValue(NUD_HP_Max), GetNUDValue(NUD_Atk_Max), GetNUDValue(NUD_Def_Max),
+                        GetNUDValue(NUD_SpA_Max), GetNUDValue(NUD_SpD_Max), GetNUDValue(NUD_Spe_Max)
+                    ];
+
+                    bool pass = true;
+                    for (var i = 0; i < ivs.Length; i++)
+                    {
+                        if ((ivs[i] >= min[i] && ivs[i] <= max[i]) || ivs[i] == 31) continue;
+                        pass = false;
+                        break;
+                    }
+
+                    if (pass)
+                    {
+                        found = true;
+                    }
+
+                    if (!pass || !found)
+                    {
+                        await ConnectionWrapper.CloseGame(Source.Token);
+                        await ConnectionWrapper.OpenGame(Source.Token);
+                        last = pk;
+                    }
+                }
+
+                UpdateStatus($"Result found! {res}");
+                await ConnectionWrapper.DoTurboCommand("HOME", Source.Token);
+                Disconnect(Source.Token);
+            }
+            catch (Exception ex)
+            {
+                //this.DisplayMessageBox(ex.Message, "Reset Error");
+                B_Reset_Click(sender, e);
+            }
+        });
+    }
 }
