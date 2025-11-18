@@ -226,6 +226,12 @@ public class ConnectionWrapperAsync(SwitchConnectionConfig Config, Action<string
         }
     }
 
+    public async Task<bool> IsOnOverworld(CancellationToken token)
+    {
+        var data = await Connection.ReadBytesMainAsync(OverworldOffset, 1, token).ConfigureAwait(false);
+        return data[0] == 1;
+    }
+
     public async Task CloseGame(CancellationToken token)
     {
         StatusUpdate("Returning HOME...");
@@ -257,11 +263,19 @@ public class ConnectionWrapperAsync(SwitchConnectionConfig Config, Action<string
         await Connection.SendAsync(Click(A, CRLF), token).ConfigureAwait(false);
         await Task.Delay(0_600, token).ConfigureAwait(false);
 
+        // Wait for game to load the title screen.
         StatusUpdate("Loading game...");
-        await Task.Delay(10_000, token).ConfigureAwait(false);
+        await Task.Delay(12_000, token).ConfigureAwait(false);
 
-        StatusUpdate("Pressing A through Title Screen...");
-        await Connection.SendAsync(Click(A, CRLF), token).ConfigureAwait(false);
-        await Task.Delay(2_500, token).ConfigureAwait(false);
+        // Mash A through the title screen until overworld check is complete.
+        StatusUpdate("Mashing A until overworld...");
+        while (!await IsOnOverworld(token).ConfigureAwait(false))
+        {
+            for (int i = 0; i < 8; i++)
+                await Connection.SendAsync(Click(A, CRLF), token).ConfigureAwait(false);
+        }
+        await Task.Delay(500, token).ConfigureAwait(false);
+        StatusUpdate("Back in the overworld! Continuing routine...");
+        await Task.Delay(2_000, token).ConfigureAwait(false);
     }
 }
