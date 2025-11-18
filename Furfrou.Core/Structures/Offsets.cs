@@ -20,5 +20,8 @@ public abstract class Offsets
     // Main offsets
     public const uint OverworldOffset = 0x5F0E4D8;
 
+    // Main Offsets
+    public const uint OverworldOffset                                      = 0x5F0E4D8;
+
 }
 

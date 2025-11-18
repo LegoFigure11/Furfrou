@@ -37,10 +37,6 @@ namespace Furfrou.WinForms;
         L_SwitchIP = new Label();
         TB_SwitchIP = new TextBox();
         GB_SAVInfo = new GroupBox();
-        L_SID = new Label();
-        L_TID = new Label();
-        TB_SID = new TextBox();
-        TB_TID = new TextBox();
         B_ReadPlayerB1S1 = new Button();
         B_ReadTrade = new Button();
         B_WritePlayerB1S1 = new Button();
@@ -118,6 +114,8 @@ namespace Furfrou.WinForms;
         B_Reset = new Button();
         B_ShinyStash = new Button();
         B_Floette = new Button();
+        L_Theme = new Label();
+        CB_Theme = new ComboBox();
         GB_Connection.SuspendLayout();
         GB_SAVInfo.SuspendLayout();
         ((System.ComponentModel.ISupportInitialize)NUD_Spe_Max).BeginInit();
@@ -217,57 +215,13 @@ namespace Furfrou.WinForms;
         // 
         // GB_SAVInfo
         // 
-        GB_SAVInfo.Controls.Add(L_SID);
-        GB_SAVInfo.Controls.Add(L_TID);
-        GB_SAVInfo.Controls.Add(TB_SID);
-        GB_SAVInfo.Controls.Add(TB_TID);
+        GB_SAVInfo.Controls.Add(L_Theme);
+        GB_SAVInfo.Controls.Add(CB_Theme);
         GB_SAVInfo.Location = new Point(0, 65);
         GB_SAVInfo.Name = "GB_SAVInfo";
         GB_SAVInfo.Size = new Size(212, 48);
         GB_SAVInfo.TabIndex = 4;
         GB_SAVInfo.TabStop = false;
-        // 
-        // L_SID
-        // 
-        L_SID.AutoSize = true;
-        L_SID.Location = new Point(132, 18);
-        L_SID.Name = "L_SID";
-        L_SID.Size = new Size(27, 15);
-        L_SID.TabIndex = 20;
-        L_SID.Text = "SID:";
-        // 
-        // L_TID
-        // 
-        L_TID.AutoSize = true;
-        L_TID.Location = new Point(25, 18);
-        L_TID.Name = "L_TID";
-        L_TID.Size = new Size(27, 15);
-        L_TID.TabIndex = 19;
-        L_TID.Text = "TID:";
-        // 
-        // TB_SID
-        // 
-        TB_SID.CharacterCasing = CharacterCasing.Upper;
-        TB_SID.Font = new Font("Consolas", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-        TB_SID.Location = new Point(165, 16);
-        TB_SID.MaxLength = 5;
-        TB_SID.Name = "TB_SID";
-        TB_SID.Size = new Size(41, 22);
-        TB_SID.TabIndex = 3;
-        TB_SID.Text = "54321";
-        TB_SID.TextChanged += TB_SID_TextChanged;
-        // 
-        // TB_TID
-        // 
-        TB_TID.CharacterCasing = CharacterCasing.Upper;
-        TB_TID.Font = new Font("Consolas", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-        TB_TID.Location = new Point(71, 16);
-        TB_TID.MaxLength = 5;
-        TB_TID.Name = "TB_TID";
-        TB_TID.Size = new Size(41, 22);
-        TB_TID.TabIndex = 2;
-        TB_TID.Text = "12345";
-        TB_TID.TextChanged += TB_TID_TextChanged;
         // 
         // B_ReadPlayerB1S1
         // 
@@ -1013,6 +967,25 @@ namespace Furfrou.WinForms;
         B_Floette.UseVisualStyleBackColor = true;
         B_Floette.Click += B_Floette_Click;
         // 
+        // L_Theme
+        // 
+        L_Theme.AutoSize = true;
+        L_Theme.Location = new Point(12, 19);
+        L_Theme.Name = "L_Theme";
+        L_Theme.Size = new Size(46, 15);
+        L_Theme.TabIndex = 179;
+        L_Theme.Text = "Theme:";
+        // 
+        // CB_Theme
+        // 
+        CB_Theme.FormattingEnabled = true;
+        CB_Theme.Items.AddRange(new object[] { "Light", "System", "Dark" });
+        CB_Theme.Location = new Point(95, 16);
+        CB_Theme.Name = "CB_Theme";
+        CB_Theme.Size = new Size(111, 23);
+        CB_Theme.TabIndex = 178;
+        CB_Theme.SelectedIndexChanged += CB_Theme_SelectedIndexChanged;
+        // 
         // MainWindow
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
@@ -1131,10 +1104,6 @@ namespace Furfrou.WinForms;
     private Label L_SwitchIP;
     private TextBox TB_SwitchIP;
     private GroupBox GB_SAVInfo;
-    private Label L_SID;
-    private Label L_TID;
-    public TextBox TB_SID;
-    public TextBox TB_TID;
     private Button B_ReadPlayerB1S1;
     private Button B_ReadTrade;
     private Button B_WritePlayerB1S1;
@@ -1212,5 +1181,7 @@ namespace Furfrou.WinForms;
     private Button B_Reset;
     private Button B_ShinyStash;
     private Button B_Floette;
+    private Label L_Theme;
+    private ComboBox CB_Theme;
 }
 

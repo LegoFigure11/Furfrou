@@ -60,6 +60,8 @@ public partial class MainWindow : Form
 
         Text = $"Furfrou v{v.Major}.{v.Minor}.{v.Build}{build}";
 
+        Application.SetColorMode(Config.Theme);
+
         InitializeComponent();
     }
 
@@ -77,10 +79,11 @@ public partial class MainWindow : Form
             TB_SwitchIP.Text = $"{Config.UsbPort}";
         }
 
-        TB_TID.Text = $"{Config.TID:D5}";
-        TB_SID.Text = $"{Config.SID:D5}";
-
         TB_Status.Text = "Not Connected.";
+
+        CB_Theme.SelectedIndex = (int)Config.Theme;
+
+        CB_Target.SelectedIndex = 0;
 
         // CheckForUpdates();
     }
@@ -111,13 +114,8 @@ public partial class MainWindow : Form
                     return;
                 }
 
-                UpdateStatus("Detecting game version...");
-
-                var (tid, sid) = ConnectionWrapper.GetIDs();
-                SetTextBoxText(tid, TB_TID);
-                SetTextBoxText(sid, TB_SID);
-
                 SetControlEnabledState(true, B_Disconnect);
+                UpdateStatus("Connected!");
             },
             token
         );
@@ -580,24 +578,6 @@ public partial class MainWindow : Form
 
     }
 
-    private void TB_TID_TextChanged(object sender, EventArgs e)
-    {
-        if (TB_TID.Text.Length > 0)
-        {
-            var tid = int.Parse(TB_TID.Text);
-            Config.TID = tid;
-        }
-    }
-
-    private void TB_SID_TextChanged(object sender, EventArgs e)
-    {
-        if (TB_SID.Text.Length > 0)
-        {
-            var sid = int.Parse(TB_SID.Text);
-            Config.SID = sid;
-        }
-    }
-
     private void TB_SwitchIP_TextChanged(object sender, EventArgs e)
     {
         if (Config.Protocol is SwitchProtocol.WiFi)
@@ -707,5 +687,18 @@ public partial class MainWindow : Form
                 B_Floette_Click(sender, e);
             }
         });
+    }
+
+    private bool first = true;
+    private bool hasShownThemePopup = false;
+    private void CB_Theme_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        if (!first)
+        {
+            Config.Theme = (SystemColorMode)CB_Theme.SelectedIndex;
+            if (!hasShownThemePopup) MessageBox.Show("Theme selection will be applied next time the program is launched.");
+            hasShownThemePopup = true;
+        }
+        first = false;
     }
 }
