@@ -17,5 +17,8 @@ public abstract class Offsets
     public static IReadOnlyList<long> WildPokemonPointer          { get; } = [0x0];
     public static IReadOnlyList<long> CachedShinyBlockPointer     { get; } = [0x5F0C250, 0x120, 0x168, 0x8];
 
+    // Main offsets
+    public const uint OverworldOffset = 0x5F0E4D8;
+
 }
 
