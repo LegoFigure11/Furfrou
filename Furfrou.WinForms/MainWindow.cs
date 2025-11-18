@@ -637,8 +637,8 @@ public partial class MainWindow : Form
                     PA9? pk;
                     do
                     {
-                        await ConnectionWrapper.DoTurboCommand("A", Source.Token);
-                        var b = await ConnectionWrapper.ReadB1S1(Source.Token, true);
+                        await ConnectionWrapper.DoTurboCommand("A", Source.Token).ConfigureAwait(false);
+                        var b = await ConnectionWrapper.ReadB1S1(Source.Token, true).ConfigureAwait(false);
                         SetRAMText(b);
                         pk = new PA9(b);
                         FillFields(pk);
@@ -671,8 +671,8 @@ public partial class MainWindow : Form
 
                     if (!pass || !found)
                     {
-                        await ConnectionWrapper.CloseGame(Source.Token);
-                        await ConnectionWrapper.OpenGame(Source.Token);
+                        await ConnectionWrapper.CloseGame(Source.Token).ConfigureAwait(false);
+                        await ConnectionWrapper.OpenGame(Source.Token).ConfigureAwait(false);
                         last = pk;
                     }
                 }
